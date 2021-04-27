@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		i19cumjul_CalcolatriceBase
+	</title>
+
+	<meta charset="UTF-8">
+	<meta name="description" content="esercizio della calcolatrice">
+	<meta name="keywords" content="HTML calcolatrice javascript">
+	<meta name="author" content="Julian Cummaudo I2AA">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Browser: Google chrome -->
+	<!-- O.S.: Windows 10 -->
+	<!-- Data creazione: 6.04.2021 -->
+	<!-- Data ultima modifica: 21.04.2021 -->
+    
+	<style>
+
+    #sfondo{
+        height: 100px;
+        width: 100px;
+    }
+    #text1{
+        font-size: 50px;
+
+    }
+    </style>
+	
+</head>
+<body style="background-color:moccasin;">
+
+    <input type="color" id="color1">
+    <input type="color" id="color2">
+    <p id="text1"></p>
+    <input type="button" id="sfondo" onclick="myShift(amogus)">
+    <input type="number" id="rang" onchange="myShift(this.value)">
+    <!--<input type="range" min="0" max="26" step="1" id="rang" value="0" oninput="myShift(this.value)">
+    -->
+    <script src="gradient.js"></script>
+    <script>
+        var text = "afz";
+
+        function myShift(amogus){
+            console.log(amogus);
+            var out = "";
+            for(var i = 0; i < text.length; i++){
+                out += nextChar(text.charAt(i), amogus);
+            }
+            importantValuesFinder();
+            setInterval(increaseDegree, 20);
+            document.getElementById("text1").innerHTML = out;
+        }
+
+        function nextChar(c,amount) {
+            if(amount < 0){
+                amount += 26;
+                myShift(amount);
+            }
+            console.log("amount"+amount);
+            return String.fromCharCode(c.charCodeAt(0) + amount%26);
+        }
+
+    </script>
+    
+</body>
