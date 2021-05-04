@@ -18,50 +18,99 @@
     
 	<style>
 
-    #sfondo{
-        height: 100px;
-        width: 100px;
-    }
+    
     #text1{
         font-size: 50px;
 
     }
+    #textInput{
+        height: 200px;
+        width: 200px;
+    }
     </style>
 	
 </head>
-<body style="background-color:moccasin;">
+<body id="sfondo">
 
     <input type="color" id="color1">
     <input type="color" id="color2">
     <p id="text1"></p>
-    <input type="button" id="sfondo" onclick="myShift(amogus)">
+    <input type="button" id="sfondo" onclick="myShift(shift)">
+    <label>Testo da codificare</label><br>
+    <textarea id="textInput" name="textInput" rows="10" cols="50" 
+        oninput="findKey(this.value)"></textarea>
     <input type="number" id="rang" onchange="myShift(this.value)">
-    <!--<input type="range" min="0" max="26" step="1" id="rang" value="0" oninput="myShift(this.value)">
-    -->
-    <script src="gradient.js"></script>
+    
+    <!--<script src="gradient.js"></script>-->
     <script>
-        var text = "afz";
+        var text = "";
+        var mostFrequentLetter = 'i';
 
-        function myShift(amogus){
-            console.log(amogus);
+        function findKey(src){
+            text = src;
+            console.log(mode(text.split('')));
+            myShift(mode(text.split('')).charCodeAt(0)-mostFrequentLetter.charCodeAt(0));
+        }
+
+        function mode(array){
+            if(array.length == 0)
+                return null;
+            var modeMap = {};
+            var maxEl = array[0], maxCount = 1;
+            for(var i = 0; i < array.length; i++)
+            {
+                var el = array[i];
+                if(modeMap[el] == null)
+                    modeMap[el] = 1;
+                else
+                    modeMap[el]++;  
+                if(modeMap[el] > maxCount)
+                {
+                    maxEl = el;
+                    maxCount = modeMap[el];
+                }
+            }
+            return maxEl;
+        }
+        
+        function myShift(shift){
             var out = "";
             for(var i = 0; i < text.length; i++){
-                out += nextChar(text.charAt(i), amogus);
+                switch(text.charCodeAt(i)){
+                    case ' '.charCodeAt(0):
+                        out += ' ';
+                        break;
+                    case '.'.charCodeAt(0):
+                        out += '.';
+                        break;
+                    case ','.charCodeAt(0):
+                        out += ',';
+                        break;
+                    case ';'.charCodeAt(0):
+                        out += ';';
+                        break;
+                    default:
+                        out += nextChar(text.charAt(i), shift);
+                        break;
+                }
             }
-            importantValuesFinder();
-            setInterval(increaseDegree, 20);
+            //importantValuesFinder();
+            //setInterval(increaseDegree, 20);
             document.getElementById("text1").innerHTML = out;
         }
 
         function nextChar(c,amount) {
-            if(amount < 0){
+            amount = Number(amount);
+            var result = c.charCodeAt(0);
+            while(amount < 0){
                 amount += 26;
-                myShift(amount);
             }
-            console.log("amount"+amount);
-            return String.fromCharCode(c.charCodeAt(0) + amount%26);
+            while(result+amount > 'z'.charCodeAt(0)){
+                result -= 26;
+            }
+            result = result+amount;
+            return String.fromCharCode(result);
         }
-
     </script>
     
 </body>

@@ -1,9 +1,9 @@
-//-----------------------------
+
 var color1 = document.getElementById('color1');
 var color2 = document.getElementById('color2');
 var degree = 0;
 
-var v = color1.toString()
+var v = color1.toString();
 var r = 0;
 var g = 1;
 var b = 2;
@@ -20,11 +20,11 @@ var rVal2;
 var gVal2;
 var bVal2;
 
-var max1 = ["",0];
-var min1 = ["",255];
+var max1 = ["", 0];
+var min1 = ["", 256];
 
-var max2 = ["",0];
-var min2 = ["",255];
+var max2 = ["", 0];
+var min2 = ["", 256];
 
 var cycle1 = -1;
 var cycle2 = -1;
@@ -39,8 +39,8 @@ function iconChange(tick) {
 //Funzioni addette al cambiamento smooth del colore
 
 function colorIncrement(){
+    cycleChoice();
     if(!grey1){
-        cycleChoice(); 
         switch(cycle1){
             case 0:
                 if(gVal1 == min1[1]){
@@ -91,6 +91,8 @@ function colorIncrement(){
                 }
                 break;
         }
+    }else{
+        greyScaleIncrement();
     }
     if(!grey2){
         switch(cycle2){
@@ -143,10 +145,10 @@ function colorIncrement(){
                 }
                 break;
         }
+    }else{
+        greyScaleIncrement();
     }
     color1.value = "#"+(rVal1<16?"0":"")+rVal1.toString(16)+(gVal1<16?"0":"")+gVal1.toString(16)+(bVal1<16?"0":"")+bVal1.toString(16);
-    
-    
     color2.value = "#"+(rVal2<16?"0":"")+rVal2.toString(16)+(gVal2<16?"0":"")+gVal2.toString(16)+(bVal2<16?"0":"")+bVal2.toString(16);
 
 }
@@ -154,7 +156,7 @@ function colorIncrement(){
 function greyScaleIncrement(){
     if(grey1){
         rVal1 = gVal1 = bVal1;
-    
+
         //A questo punto tutti e tre i valori sono uguali
         if(rVal1 > 0 && !increment){
             rVal1--;
@@ -177,7 +179,7 @@ function greyScaleIncrement(){
     }
     if(grey2){
         rVal2 = gVal2 = bVal2;
-    
+
         if(rVal2 < 255 && !decrement){
             rVal2++;
             gVal2++;
@@ -197,7 +199,7 @@ function greyScaleIncrement(){
         }
     }
 
-    
+
 }
 function cycleChoice(){
     minimum();
@@ -303,10 +305,10 @@ function importantValuesFinder(){
 
     rVal1 = parseInt(color1.value.charAt(1)+color1.value.charAt(2),16);
     rVal1 == 0 ? rVal1=1 : rVal1=rVal1;
-    
+
     gVal1 = parseInt(color1.value.charAt(3)+color1.value.charAt(4),16);
     gVal1 == 0 ? gVal1=1 : gVal1=gVal1;
-    
+
     bVal1 = parseInt(color1.value.charAt(5)+color1.value.charAt(6),16);
     bVal1 == 0 ? bVal1=1 : bVal1=bVal1;
 
@@ -319,16 +321,18 @@ function importantValuesFinder(){
 
     bVal2 = parseInt(color2.value.charAt(5)+color2.value.charAt(6),16);
     bVal2 == 0 ? bVal2=1 : bVal2=bVal2;
-    
+
 
     minimum();
     maximum();
 
     if(max1[1] - 15 <= min1[1] || rVal1+gVal1+bVal1 < 30){
         grey1 = true;
+        console.log("Color1 sulla scala dei grigi");
     }
     if(max2[1] - 15 <= min2[1] || rVal2+gVal2+bVal2 < 30){
         grey2 = true;
+        console.log("Color2 sulla scala dei grigi");
     }
 }
 //-------------------------------------------------
@@ -354,7 +358,7 @@ function increaseDegree(){
     }
     greyScaleIncrement();
     colorIncrement();
-    
+
     degreeChoice(degree);
 }
 //Riveve i gradi da impostare al gradient
@@ -375,5 +379,3 @@ color2.addEventListener("input", function() {
     document.getElementById("sfondo").style.background = "linear-gradient(" + degree + "deg," + color1.value+","+ color2.value+")";
     document.getElementById("sfondo").style.backgroundAttachment = "fixed";
 }, false);
-//------------------------------------------------------------------------------------------------------------
-
