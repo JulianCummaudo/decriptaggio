@@ -2,19 +2,19 @@
 <html>
 <head>
 	<title>
-		i19cumjul_CalcolatriceBase
+		Cifrario di cesare
 	</title>
 
 	<meta charset="UTF-8">
-	<meta name="description" content="esercizio della calcolatrice">
-	<meta name="keywords" content="HTML calcolatrice javascript">
-	<meta name="author" content="Julian Cummaudo I2AA">
+	<meta name="description" content="Codificare un messaggio con cifrario di cesare">
+	<meta name="keywords" content="HTML">
+	<meta name="author" content="Julian Cummaudo">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- Browser: Google chrome -->
 	<!-- O.S.: Windows 10 -->
 	<!-- Data creazione: 6.04.2021 -->
-	<!-- Data ultima modifica: 21.04.2021 -->
+	<!-- Data ultima modifica: 18.11.2024 -->
     
 	<style>
 
@@ -31,15 +31,16 @@
 	
 </head>
 <body id="sfondo">
-
-    <input type="color" id="color1">
-    <input type="color" id="color2">
+    <h1>Decoder cifrario di cesare</h1>
     <p id="text1"></p>
-    <input type="button" id="sfondo" onclick="myShift(shift)">
-    <label>Testo da codificare</label><br>
+    <label>Testo da codificare</label>
+    <br>
     <textarea id="textInput" name="textInput" rows="10" cols="50" 
         oninput="findKey(this.value)"></textarea>
-    <input type="number" id="rang" onchange="myShift(this.value)">
+    <br>
+    <label>Quanti caratteri spostare</label>
+    <br><br>
+    <input type="number" value="0" id="rang" onchange="myShift(this.value)">
     
     <!--<script src="gradient.js"></script>-->
     <script>
